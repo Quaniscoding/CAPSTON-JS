@@ -1,3 +1,4 @@
+var product = new Product();
 // Modal
 var modal = document.getElementById("myModal");
 var btn = document.getElementById("cart");
@@ -23,7 +24,7 @@ window.onclick = function (event) {
 }
 // xóa cart
 var remove_cart = document.getElementsByClassName("btn-danger");
-console.log(remove_cart);
+
 for (var i = 0; i < remove_cart.length; i++) {
     var button = remove_cart[i]
     button.addEventListener("click", function () {
@@ -31,7 +32,6 @@ for (var i = 0; i < remove_cart.length; i++) {
         button_remove.parentElement.parentElement.remove()
         updatecart();
     })
-
 }
 // update cart 
 function updatecart() {
@@ -60,32 +60,36 @@ for (var i = 0; i < quantity_input.length; i++) {
         updatecart()
     })
 }
-var add_cart = document.getElementsByClassName("btn-cart");
-for (var i = 0; i < add_cart.length; i++) {
-    var add = add_cart[i];
-    add.addEventListener("click", function (event) {
-        var button = event.target;
-        var product = button.parentElement.parentElement;
-        var img = product.parentElement.getElementsByClassName("img-prd")[0].src
-        var name = product.getElementsByClassName("content-product-h3")[0].innerText
-        var price = product.getElementsByClassName("gia")[0].innerText
-        addItemToCart(name, price, img)
-        // Khi thêm sản phẩm vào giỏ hàng thì sẽ hiển thị modal
-        modal.style.display = "block";
-        updatecart()
-    })
+// var add_cart = document.getElementsByClassName("btn-cart").onclick = function () {
+//     var img = document.getElementsByClassName("img-prd")[0].src;
+//     var name = document.getElementsByClassName("content-product-h3")[0].innerText;
+//     var price = document.getElementsByClassName("gia")[0].innerText;
+//     addItemToCart(name, price, img)
+//     // addItemToCart(name, price, img)
+//     // Khi thêm sản phẩm vào giỏ hàng thì sẽ hiển thị modal
+//     modal.style.display = "block";
+//     updatecart()
+// }
+var service = new Service();
+
+function add_cart() {
+    var img = document.getElementsByClassName("img-prd")[0].src;
+    var name = document.getElementsByClassName("content-product-h3")[0].innerText;
+    var price = document.getElementsByClassName("gia")[0].innerText;
+    var product = new Product("", img, name, price);
+    service
+        .addProductApi(product)
+        .then(function () {
+            addItemToCart();
+        })
+        .catch(function (error) {
+            console.log(error);
+        })
 }
 function addItemToCart(name, price, img) {
     var cartRow = document.createElement('div')
     cartRow.classList.add('cart-row')
     var cartItems = document.getElementsByClassName('cart-items')[0]
-    var cart_title = cartItems.getElementsByClassName('cart-item-title')
-    for (var i = 0; i < cart_title.length; i++) {
-        if (cart_title[i].innerText == name) {
-            alert('Sản Phẩm Đã Có Trong Giỏ Hàng')
-            return
-        }
-    }
     var cartRowContents = `
   <div class="cart-item cart-column">
       <img class="cart-item-image" src="${img}" width="100" height="100">
@@ -111,3 +115,10 @@ function addItemToCart(name, price, img) {
         updatecart()
     })
 }
+// var cart_title = cartItems.getElementsByClassName('cart-item-title')
+    // // for (var i = 0; i < cart_title.length; i++) {
+    // //     if (cart_title[i].innerText == name) {
+    // //         alert('Sản Phẩm Đã Có Trong Giỏ Hàng')
+    // //         return
+    // //     }
+    // // }

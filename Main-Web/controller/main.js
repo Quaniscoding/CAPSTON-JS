@@ -19,7 +19,6 @@ function fetchData() {
         });
 }
 fetchData();
-
 function renderHTMl(data) {
     var content = "";
     data.forEach(function (product) {
@@ -33,14 +32,14 @@ function renderHTMl(data) {
                     <div class="content-product">
                         <h3 class="content-product-h3">${product.name}</h3>
                         <div class="content-product-deltals">
-                            <div class="price" style="fontsize:16px">
-                                <span class="money gia">Giá: ${product.price}</span>
+                            <div class="price" style="fontsize:16px ">
+                                <span class="money gia" >${product.price}</span>
                                 <span class="money manHinh">Màn hình: ${product.screen}</span>
                                 <span class="money cam1">Camera sau: ${product.backCamera}</span>
                                 <span class="money cam2">Camera trước: ${product.frontCamera}</span>
                                 <span class="money moTa cart-item-title">Mô tả: ${product.desc}</span>
                             </div>
-                            <button type="button" class="btn btn-cart">Add</button>
+                            <button type="button" class="btn btn-cart" onclick="add_cart()">Add</button>
                         </div>
                     </div>
                 </li>
