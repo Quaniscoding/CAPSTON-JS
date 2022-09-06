@@ -55,7 +55,7 @@
       </nav>
 
       <header class="display-4 my-4 text-center text-danger font-weight-bold">
-        Quan Ly San Pham
+        Axios
       </header>
       <!-- Phan tab menu -->
       <ul class="nav nav-tabs" role="tablist">
@@ -124,12 +124,13 @@
           <div class="tblNguoiDung" id="tblNguoiDung">
             <table class="table table-bordered">
               <thead>
-  <th>ID</th>
-                <th >Ten SP</th>
-                <th>Gia</th>
-                <th>Loai man hinh</th>
-                <th>Camera sau</th>
-                <th>Camera truoc</th>
+                <th>STT</th>
+                <th>Tài khoản</th>
+                <th>Họ tên</th>
+                <th>Mật khẩu</th>
+                <th>Email</th>
+                <th>Ngôn ngữ</th>
+                <th>Tên loại</th>
                 <th>Mô Tả</th>
                 <th>Hình ảnh</th>
               </thead>
@@ -167,54 +168,72 @@
             <!-- Modal body -->
             <div class="modal-body">
               <div class="form-group">
-                <label>Ten San Pham</label>
+                <label>Tài khoản</label>
                 <input
-                  id="tenSP"
+                  id="accounT"
                   class="form-control"
-                  placeholder="Nhập Ten San Pham"
+                  placeholder="Nhập vào tài khoản"
                 />
                 <span class="sp-thongbao" id="alertAccounts"></span>
               </div>
               <div class="form-group">
-                <label>Gia</label>
+                <label>Họ tên</label>
                 <input
-                  id="price"
+                  id="fullName"
                   class="form-control"
-                  placeholder="Nhập vào gia tien"
+                  placeholder="Nhập vào họ tên"
                 />
                 <span class="sp-thongbao" id="alertFullName"></span>
               </div>
               <div class="form-group">
-                <label>Loai Man Hinh</label>
+                <label>Mật khẩu</label>
                 <input
-                  id="screenType"
+                  id="passWord"
                   class="form-control"
-                  placeholder="Nhập vào Loai Man Hinh"
-                  type="text"
+                  placeholder="Nhập vào mật khẩu"
+                  type="password"
                 />
                 <span class="sp-thongbao" id="alertPassword"></span>
               </div>
               <div class="form-group">
-                <label>Camera sau</label>
+                <label>Email</label>
                 <input
-                  id="backCamera"
+                  id="Email"
                   class="form-control"
-                  placeholder="Nhập vào Camera sau"
+                  placeholder="Nhập vào Email"
                 />
                 <span class="sp-thongbao" id="alertEmail"></span>
               </div>
               <div class="form-group">
-                <label>Camera truoc </label>
+                <label>Hình Ảnh</label>
                 <input
-                  id="frontCamera"
+                  id="imageInfo"
                   class="form-control"
-                  placeholder="Nhập vào Camera truoc"
+                  placeholder="Nhập vào hình ảnh"
                 />
                 <span class="sp-thongbao" id="imageAlert"></span>
               </div>
-              
               <div class="form-group">
-      
+                <label for="">Loại Người Dùng: </label>
+                <select class="form-control" id="peopleType">
+                  <option>Chọn loại người dùng</option>
+                  <option value="GV">Giáo viên</option>
+                  <option value="HV">Học viên</option>
+                </select>
+                <span class="sp-thongbao" id="typePeopleAlert"></span>
+              </div>
+              <div class="form-group">
+                <label for="">Loại Ngôn Ngữ: </label>
+                <select class="form-control" id="languageType">
+                  <option>Chọn ngôn ngữ</option>
+                  <option value="ITALIAN">ITALIAN</option>
+                  <option value="FRENCH">FRENCH</option>
+                  <option value="JAPANESE">JAPANESE</option>
+                  <option value="CHINESE">CHINESE</option>
+                  <option value="RUSSIAN">RUSSIAN</option>
+                  <option value="SWEDEN">SWEDEN</option>
+                  <option value="SPANISH">SPANISH</option>
+                </select>
                 <span class="sp-thongbao" id="alertLanguageType"></span>
               </div>
               <div class="form-group">
@@ -223,20 +242,10 @@
                   name=""
                   id="describeInfo"
                   class="form-control"
-                  placeholder="Nhập vào hinh anh"
+                  placeholder="Nhập vào mô tả"
                 ></textarea>
                 <span class="sp-thongbao" id="describeAlert"></span>
               </div>
-              <div class="form-group">
-                <label>Hinh Anh </label>
-                <input
-                  id="imageInfo"
-                  class="form-control"
-                  placeholder="Nhập vào Hinh Anh"
-                />
-                <span class="sp-thongbao" id="imageAlert"></span>
-              </div>
-              <button class="btn btn-success text-danger font-weight-bold float-right" id="logoutInfo" onclick="themTT()">In thong tin</button>
             </div>
             <!-- Modal footer -->
             <div class="modal-footer"></div>
@@ -284,8 +293,9 @@
     ></script>
     <script src="../js/sp.js"></script>
     <script src="../js/qlsp.js"></script>
-    <script src="../js/validation.js"></script>
     <script src="../js/service.js"></script>
+    <script src="../js/validation.js"></script>
     <script src="../js/main.js"></script>
+
 </body>
 </html>
