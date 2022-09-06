@@ -468,3 +468,7 @@ nav {
     color: #333;
     font-size: 1.1em;
   }
+  
+.table td,table th{
+  vertical-align: text-bottom !important;
+}
