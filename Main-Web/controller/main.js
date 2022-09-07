@@ -34,7 +34,7 @@ function renderHTMl(data) {
                         <h3 class="content-product-h3">${product.name}</h3>
                         <div class="content-product-deltals">
                             <div class="price" style="fontsize:16px ">
-                                <span class="money gia" >${product.price}</span>
+                                <span class="money gia">${product.price}</span>
                                 <span class="money manHinh">Màn hình: ${product.screen}</span>
                                 <span class="money cam1">Camera sau: ${product.backCamera}</span>
                                 <span class="money cam2">Camera trước: ${product.frontCamera}</span>

@@ -21,29 +21,30 @@ window.onclick = function (event) {
         modal.style.display = "none";
     }
 }
-// function updatecart() {
-//     var cart_item = document.getElementsByClassName("cart-items")[0];
-//     var cart_rows = cart_item.getElementsByClassName("cart-row");
-//     var total = 0;
-//     for (var i = 0; i < cart_rows.length; i++) {
-//         var cart_row = cart_rows[i]
-//         var price_item = cart_row.getElementsByClassName("cart-price")[0]
-//         var quantity_item = cart_row.getElementsByClassName("cart-quantity-input")[0]
-//         var price = parseFloat(price_item.innerText)
-//         var quantity = quantity_item.value // lấy giá trị trong thẻ input
-//         total = total + (price * quantity)
-//     }
-//     document.getElementsByClassName("cart-total-price")[0].innerText = total + "$";
-// }
-function update_Cart() {
-    var total = 0;
-    let price = document.getElementById("price").value * 1;
-    let amount = document.getElementById("amount").value;
-    console.log(price, amount);
-    total = total + (price * amount)
-    document.getElementsByClassName("cart-total-price")[0].innerText = total + "$"
+var remove_cart = document.getElementsByClassName("btn-danger");
+for (var i = 0; i < remove_cart.length; i++) {
+    var button = remove_cart[i]
+    button.addEventListener("click", function () {
+        var button_remove = event.target
+        button_remove.parentElement.parentElement.remove()
+    })
+    updatecart()
 }
-// update_Cart();
+// update cart 
+function updatecart() {
+    var cart_item = document.getElementsByClassName("cart-items")[0];
+    var cart_rows = cart_item.getElementsByClassName("cart-row");
+    var total = 0;
+    for (var i = 0; i < cart_rows.length; i++) {
+        var cart_row = cart_rows[i]
+        var price_item = cart_row.getElementsByClassName("cart-price ")[0]
+        var quantity_item = cart_row.getElementsByClassName("cart-quantity-input")[0]
+        var price = parseFloat(price_item.innerText)
+        var quantity = quantity_item.value // lấy giá trị trong thẻ input
+        total = total + (price * quantity)
+    }
+    document.getElementsByClassName("cart-total-price")[0].innerText = total + 'VNĐ'
+}
 // thay đổi số lượng sản phẩm
 var quantity_input = document.getElementsByClassName("cart-quantity-input");
 for (var i = 0; i < quantity_input.length; i++) {
@@ -78,18 +79,11 @@ function add_cart(id) {
     if (index !== -1) {
         currentProduct = products[index]
     }
-    // var cart_title = document.querySelector("#btn-cart").innerHTML;
-    // console.log(cart_title);
-    // for (let i = 0; i < listCart.length; i++) {
-    //     if (cart_title[i] == currentProduct.id) {
-    //         alert('Sản Phẩm Đã Có Trong Giỏ Hàng')
-    //         return
-    //     }
-    // }
     const addproduct = { name: currentProduct.name, price: currentProduct.price, img: currentProduct.img, id: currentProduct.id }
     listCart = [...listCart, addproduct]
     saveData(listCart);
     showData();
+    updatecart();
     modal.style.display = "block";
 }
 function delete_cart(id) {
@@ -104,6 +98,7 @@ function delete_cart(id) {
     listCart.splice(deleteProduct, 1)
     saveData(listCart);
     showData(index);
+    updatecart();
     modal.style.display = "block";
 }
 function delete_allCart(id) {
@@ -118,6 +113,7 @@ function delete_allCart(id) {
     listCart.splice(deleteProduct)
     saveData(listCart);
     showData(index);
+    updatecart()
     modal.style.display = "block";
 }
 let showData = () => {
@@ -125,39 +121,21 @@ let showData = () => {
     let result = ``;
     getListCart.map(item => {
         result += `
-            <tr>
-            <td>
-            <img class="cart-item-image" src="${item.img}" width="100" height="100">
-            ${item.name}
-            </td>
-            <td id="price">${item.price}</td>
-            <td>
-            <div class="d-flex">
-            <button class="btn-qty" onclick="qty_change1(${item.id})">
-            <i class="fa fa-chevron-left"></i>
-            </button>
-            <p id="qty" style="padding:2px 5px;padding-top:16px">1</p>
-            <button class="btn-qty" onclick="qty_change2(${item.id})">
-            <i class="fa fa-chevron-right"></i>
-            </button>
-            <button class="btn btn-danger" type="button" onclick="delete_cart(${item.id})">Xóa</button>
+        <div class="cart-row">
+            <div class="cart-item cart-column">
+                <img class="cart-item-image" src="${item.img}" width="100" height="100">
+                <span class="cart-item-title">${item.name}</span>
             </div>
-            
-            </td>   
-        <button class="btn btn-danger" type="button" onclick="delete_allCart(${item.id})">Xóa toàn bộ</button>
-        </tr>
+            <span class="cart-price cart-column">${item.price}</span>
+            <div class="cart-quantity cart-column">
+                <input class="cart-quantity-input" type="number" value="1">
+                <button class="btn btn-danger" type="button" onclick="delete_cart(${item.id})">Xóa</button>
+                <button class="btn btn-danger" type="button" onclick="delete_allCart(${item.id})">Xóa toàn bộ</button>
+            </div>
+        </div>
             `
     })
     document.getElementById("cart-items").innerHTML = result;
-}
-
-function qty_change1(id) {
-    let number = document.getElementById("qty").innerHTML;
-    document.getElementById("qty").innerHTML = number - 1;
-}
-function qty_change2(id) {
-    let number = document.getElementById("qty").innerHTML;
-    document.getElementById("qty").innerHTML = number + 1;
 }
 let saveData = (data) => {
     localStorage.setItem("listCart", JSON.stringify(data))
@@ -165,32 +143,21 @@ let saveData = (data) => {
 
 window.onload = showData();
 
-// function addItemToCart(name, price, img) {
-//     var cartRow = document.createElement('div')
-//     cartRow.classList.add('cart-row')
-//     var cartItems = document.getElementsByClassName('cart-items')[0]
-//     var cartRowContents = `
-//   <div class="cart-item cart-column">
-//       <img class="cart-item-image" src="${img}" width="100" height="100">
-//       <span class="cart-item-title">${name}</span>
-//   </div>
-//   <span class="cart-price cart-column">${price}</span>
-//   <div class="cart-quantity cart-column">
-//       <input class="cart-quantity-input" type="number" value="1">
-//       <button class="btn btn-danger" type="button">Xóa</button>
-//   </div>`
-//     cartRow.innerHTML = cartRowContents
-//     cartItems.append(cartRow)
-//     cartRow.getElementsByClassName('btn-danger')[0].addEventListener('click', function () {
-//         var button_remove = event.target
-//         button_remove.parentElement.parentElement.remove()
-//         updatecart()
-//     })
-//     cartRow.getElementsByClassName('cart-quantity-input')[0].addEventListener('change', function (event) {
-//         var input = event.target
-//         if (isNaN(input.value) || input.value <= 0) {
-//             input.value = 1;
-//         }
-//         updatecart()
-//     })
+// function update_Cart(id) {
+//     var total = 0;
+//     const productsJSON = localStorage.getItem('products')
+//     const products = JSON.parse(productsJSON)
+//     const index = products.findIndex((item) => item.id == id);
+//     let currentProduct = null;
+//     if (index !== -1) {
+//         currentProduct = products[index]
+//     }
+//     const update = { price: currentProduct.price, id: currentProduct.id }
+//     let quantity = document.getElementById("qty").innerHTML;
+//     console.log(currentProduct.id, quantity);
+//     if (quantity + 1) {
+//         total = quantity * (currentProduct.price)
+//     }
+//     // total = total + (currentProduct.price * quantity)
+//     document.getElementsByClassName("cart-total-price")[0].innerText = total + "$"
 // }
