@@ -48,4 +48,3 @@ function renderHTMl(data) {
     });
     getEle("product_content").innerHTML = content;
 }
-

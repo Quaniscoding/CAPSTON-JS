@@ -21,15 +21,6 @@ window.onclick = function (event) {
         modal.style.display = "none";
     }
 }
-var remove_cart = document.getElementsByClassName("btn-danger");
-for (var i = 0; i < remove_cart.length; i++) {
-    var button = remove_cart[i]
-    button.addEventListener("click", function () {
-        var button_remove = event.target
-        button_remove.parentElement.parentElement.remove()
-    })
-    updatecart()
-}
 // update cart 
 function updatecart() {
     var cart_item = document.getElementsByClassName("cart-items")[0];
@@ -45,18 +36,20 @@ function updatecart() {
     }
     document.getElementsByClassName("cart-total-price")[0].innerText = total + 'VNĐ'
 }
-// thay đổi số lượng sản phẩm
-var quantity_input = document.getElementsByClassName("cart-quantity-input");
-for (var i = 0; i < quantity_input.length; i++) {
-    var input = quantity_input[i];
-    input.addEventListener("change", function (event) {
-        var input = event.target
-        if (isNaN(input.value) || input.value <= 0) {
-            input.value = 1;
-        }
-        updatecart()
-    })
-}
+setInterval(function () {
+    var quantity_input = document.getElementsByClassName("cart-quantity-input");
+    for (var i = 0; i < quantity_input.length; i++) {
+        var input = quantity_input[i];
+        input.addEventListener("change", function (event) {
+            var input = event.target
+            if (isNaN(input.value) || input.value <= 0) {
+                input.value = 1;
+            }
+            updatecart()
+        })
+    }
+}, 1000)
+
 class Cart {
     constructor(id, name, price, screen, backCamera, frontCamera, img, desc) {
         this.id = id;
@@ -95,7 +88,9 @@ function delete_cart(id) {
         currentProduct = products[index]
     }
     const deleteProduct = { name: currentProduct.name, price: currentProduct.price, img: currentProduct.img, id: currentProduct.id }
+    console.log(deleteProduct);
     listCart.splice(deleteProduct, 1)
+    console.log(products);
     saveData(listCart);
     showData(index);
     updatecart();
@@ -142,22 +137,3 @@ let saveData = (data) => {
 }
 
 window.onload = showData();
-
-// function update_Cart(id) {
-//     var total = 0;
-//     const productsJSON = localStorage.getItem('products')
-//     const products = JSON.parse(productsJSON)
-//     const index = products.findIndex((item) => item.id == id);
-//     let currentProduct = null;
-//     if (index !== -1) {
-//         currentProduct = products[index]
-//     }
-//     const update = { price: currentProduct.price, id: currentProduct.id }
-//     let quantity = document.getElementById("qty").innerHTML;
-//     console.log(currentProduct.id, quantity);
-//     if (quantity + 1) {
-//         total = quantity * (currentProduct.price)
-//     }
-//     // total = total + (currentProduct.price * quantity)
-//     document.getElementsByClassName("cart-total-price")[0].innerText = total + "$"
-// }
