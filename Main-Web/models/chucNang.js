@@ -21,32 +21,29 @@ window.onclick = function (event) {
         modal.style.display = "none";
     }
 }
-// xóa cart
-var remove_cart = document.getElementsByClassName("btn-danger");
-
-for (var i = 0; i < remove_cart.length; i++) {
-    var button = remove_cart[i]
-    button.addEventListener("click", function () {
-        var button_remove = event.target
-        button_remove.parentElement.parentElement.remove()
-        updatecart();
-    })
-}
-// update cart 
-function updatecart() {
-    var cart_item = document.getElementsByClassName("cart-items")[0];
-    var cart_rows = cart_item.getElementsByClassName("cart-row");
+// function updatecart() {
+//     var cart_item = document.getElementsByClassName("cart-items")[0];
+//     var cart_rows = cart_item.getElementsByClassName("cart-row");
+//     var total = 0;
+//     for (var i = 0; i < cart_rows.length; i++) {
+//         var cart_row = cart_rows[i]
+//         var price_item = cart_row.getElementsByClassName("cart-price")[0]
+//         var quantity_item = cart_row.getElementsByClassName("cart-quantity-input")[0]
+//         var price = parseFloat(price_item.innerText)
+//         var quantity = quantity_item.value // lấy giá trị trong thẻ input
+//         total = total + (price * quantity)
+//     }
+//     document.getElementsByClassName("cart-total-price")[0].innerText = total + "$";
+// }
+function update_Cart() {
     var total = 0;
-    for (var i = 0; i < cart_rows.length; i++) {
-        var cart_row = cart_rows[i]
-        var price_item = cart_row.getElementsByClassName("cart-price")[0]
-        var quantity_item = cart_row.getElementsByClassName("cart-quantity-input")[0]
-        var price = parseFloat(price_item.innerText)
-        var quantity = quantity_item.value // lấy giá trị trong thẻ input
-        total = total + (price * quantity)
-    }
-    document.getElementsByClassName("cart-total-price")[0].innerText = total + "$";
+    let price = document.getElementById("price").value * 1;
+    let amount = document.getElementById("amount").value;
+    console.log(price, amount);
+    total = total + (price * amount)
+    document.getElementsByClassName("cart-total-price")[0].innerText = total + "$"
 }
+// update_Cart();
 // thay đổi số lượng sản phẩm
 var quantity_input = document.getElementsByClassName("cart-quantity-input");
 for (var i = 0; i < quantity_input.length; i++) {
@@ -72,56 +69,95 @@ class Cart {
     }
 }
 let listCart = [];
+
 function add_cart(id) {
     const productsJSON = localStorage.getItem('products')
-
     const products = JSON.parse(productsJSON)
-    console.log('products', products);
-    console.log(id);
     const index = products.findIndex((item) => item.id == id);
-    console.log(index);
     let currentProduct = null;
     if (index !== -1) {
         currentProduct = products[index]
     }
-    console.log(currentProduct);
-    const addproduct = { name: currentProduct.name, price: currentProduct.price, img: currentProduct.img }
+    // var cart_title = document.querySelector("#btn-cart").innerHTML;
+    // console.log(cart_title);
+    // for (let i = 0; i < listCart.length; i++) {
+    //     if (cart_title[i] == currentProduct.id) {
+    //         alert('Sản Phẩm Đã Có Trong Giỏ Hàng')
+    //         return
+    //     }
+    // }
+    const addproduct = { name: currentProduct.name, price: currentProduct.price, img: currentProduct.img, id: currentProduct.id }
     listCart = [...listCart, addproduct]
-    // console.log(product);
-    // var img = product.img;
-    // var name = product.name;
-    // var price = product.price;
-    // let cartAdd = new Cart(id, name, price, screen, backCamera, frontCamera, img, desc);
-    // listCart = [...listCart, cartAdd]
-    // saveData(listCart);
-    // showData();
-    // modal.style.display = "block";
-    // // updatecart()
+    saveData(listCart);
+    showData();
+    modal.style.display = "block";
 }
-
-
+function delete_cart(id) {
+    const productsJSON = localStorage.getItem('products')
+    const products = JSON.parse(productsJSON)
+    const index = products.findIndex((item) => item.id == id);
+    let currentProduct = null;
+    if (index !== -1) {
+        currentProduct = products[index]
+    }
+    const deleteProduct = { name: currentProduct.name, price: currentProduct.price, img: currentProduct.img, id: currentProduct.id }
+    listCart.splice(deleteProduct, 1)
+    saveData(listCart);
+    showData(index);
+    modal.style.display = "block";
+}
+function delete_allCart(id) {
+    const productsJSON = localStorage.getItem('products')
+    const products = JSON.parse(productsJSON)
+    const index = products.findIndex((item) => item.id == id);
+    let currentProduct = null;
+    if (index !== -1) {
+        currentProduct = products[index]
+    }
+    const deleteProduct = { name: currentProduct.name, price: currentProduct.price, img: currentProduct.img, id: currentProduct.id }
+    listCart.splice(deleteProduct)
+    saveData(listCart);
+    showData(index);
+    modal.style.display = "block";
+}
 let showData = () => {
     let getListCart = JSON.parse(localStorage.getItem("listCart"));
     let result = ``;
-    if (getListCart) {
-        getListCart.map(item => {
-            result += `
+    getListCart.map(item => {
+        result += `
             <tr>
             <td>
             <img class="cart-item-image" src="${item.img}" width="100" height="100">
             ${item.name}
             </td>
-            <td>${item.price}</td>
+            <td id="price">${item.price}</td>
             <td>
-            <input class="cart-quantity-input" type="number" value="1">
-            <button class="btn btn-danger" type="button" onclick="btnXoaSp()">Xóa</button>
-            </td>
+            <div class="d-flex">
+            <button class="btn-qty" onclick="qty_change1(${item.id})">
+            <i class="fa fa-chevron-left"></i>
+            </button>
+            <p id="qty" style="padding:2px 5px;padding-top:16px">1</p>
+            <button class="btn-qty" onclick="qty_change2(${item.id})">
+            <i class="fa fa-chevron-right"></i>
+            </button>
+            <button class="btn btn-danger" type="button" onclick="delete_cart(${item.id})">Xóa</button>
+            </div>
             
+            </td>   
+        <button class="btn btn-danger" type="button" onclick="delete_allCart(${item.id})">Xóa toàn bộ</button>
         </tr>
             `
-        })
-    };
+    })
     document.getElementById("cart-items").innerHTML = result;
+}
+
+function qty_change1(id) {
+    let number = document.getElementById("qty").innerHTML;
+    document.getElementById("qty").innerHTML = number - 1;
+}
+function qty_change2(id) {
+    let number = document.getElementById("qty").innerHTML;
+    document.getElementById("qty").innerHTML = number + 1;
 }
 let saveData = (data) => {
     localStorage.setItem("listCart", JSON.stringify(data))
@@ -158,10 +194,3 @@ window.onload = showData();
 //         updatecart()
 //     })
 // }
-// var cart_title = cartItems.getElementsByClassName('cart-item-title')
-//     // for (var i = 0; i < cart_title.length; i++) {
-//     //     if (cart_title[i].innerText == name) {
-//     //         alert('Sản Phẩm Đã Có Trong Giỏ Hàng')
-//     //         return
-//     //     }
-//     // }

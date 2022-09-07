@@ -23,8 +23,6 @@ fetchData();
 function renderHTMl(data) {
     var content = "";
     data.forEach(function (product) {
-
-        const dataProduct = [product.id, product.img]
         content += `
         <li class="main-product">
                     <div class="img-product">
@@ -34,7 +32,6 @@ function renderHTMl(data) {
                     </div>
                     <div class="content-product">
                         <h3 class="content-product-h3">${product.name}</h3>
-                        <h3 class="content-product-h3" id="productId">${product.id}</h3>
                         <div class="content-product-deltals">
                             <div class="price" style="fontsize:16px ">
                                 <span class="money gia" >${product.price}</span>
@@ -42,8 +39,8 @@ function renderHTMl(data) {
                                 <span class="money cam1">Camera sau: ${product.backCamera}</span>
                                 <span class="money cam2">Camera trước: ${product.frontCamera}</span>
                                 <span class="money moTa cart-item-title">Mô tả: ${product.desc}</span>
-                            </div>
                             <button type="button" class="btn btn-cart" onclick="add_cart(${product.id})">Add</button>
+                            </div>
                         </div>
                     </div>
                 </li>

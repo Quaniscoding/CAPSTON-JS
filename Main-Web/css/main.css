@@ -472,3 +472,19 @@ nav {
 .table td,table th{
   vertical-align: text-bottom !important;
 }
+button {
+  border: none;
+  background: none;
+  outline: none;
+  color:#0275d8;
+  cursor: pointer;
+  transition: 0.5s;
+}
+btn-qty{
+  border: 1px solid white;
+    border-radius: 50%;
+    padding: 2px 5px;
+}
+fa{
+  font-weight: 900;
+}
