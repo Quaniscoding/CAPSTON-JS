@@ -125,14 +125,13 @@
             <table class="table table-bordered">
               <thead>
                 <th>STT</th>
-                <th>Tài khoản</th>
-                <th>Họ tên</th>
-                <th>Mật khẩu</th>
-                <th>Email</th>
-                <th>Ngôn ngữ</th>
-                <th>Tên loại</th>
+                <th>Tên SP</th>
+                <th>Giá</th>
+                <th>Màn Hình</th>
+                <th>Camera trước</th>
+                <th>Camera Sau</th>
+                <th>Hình Ảnh</th>
                 <th>Mô Tả</th>
-                <th>Hình ảnh</th>
               </thead>
               <tbody id="danhsachND"></tbody>
             </table>
@@ -168,73 +167,55 @@
             <!-- Modal body -->
             <div class="modal-body">
               <div class="form-group">
-                <label>Tài khoản</label>
+                <label>Tên SP</label>
                 <input
                   id="accounT"
                   class="form-control"
-                  placeholder="Nhập vào tài khoản"
+                  placeholder="Nhập vào tên SP"
                 />
                 <span class="sp-thongbao" id="alertAccounts"></span>
               </div>
               <div class="form-group">
-                <label>Họ tên</label>
+                <label>Giá</label>
                 <input
-                  id="fullName"
+                  id="price"
                   class="form-control"
-                  placeholder="Nhập vào họ tên"
+                  placeholder="Nhập vào giá"
                 />
                 <span class="sp-thongbao" id="alertFullName"></span>
               </div>
               <div class="form-group">
-                <label>Mật khẩu</label>
+                <label>màn hình</label>
                 <input
-                  id="passWord"
+                  id="screenType"
                   class="form-control"
-                  placeholder="Nhập vào mật khẩu"
-                  type="password"
+                  placeholder="Nhập vào màn hình"
+                  type="text"
                 />
                 <span class="sp-thongbao" id="alertPassword"></span>
               </div>
               <div class="form-group">
-                <label>Email</label>
+                <label>cam trước</label>
                 <input
-                  id="Email"
+                  id="backCamera"
                   class="form-control"
-                  placeholder="Nhập vào Email"
+                  placeholder="Nhập vào cam trước"
                 />
                 <span class="sp-thongbao" id="alertEmail"></span>
               </div>
               <div class="form-group">
-                <label>Hình Ảnh</label>
+                <label>cam sau</label>
                 <input
-                  id="imageInfo"
+                  id="frontCamera"
                   class="form-control"
-                  placeholder="Nhập vào hình ảnh"
+                  placeholder="Nhập vào cam sau"
                 />
                 <span class="sp-thongbao" id="imageAlert"></span>
               </div>
               <div class="form-group">
-                <label for="">Loại Người Dùng: </label>
-                <select class="form-control" id="peopleType">
-                  <option>Chọn loại người dùng</option>
-                  <option value="GV">Giáo viên</option>
-                  <option value="HV">Học viên</option>
-                </select>
+                <label for="">Hình Ảnh</label>
+                  <input type="text" id="imageInfo" class="form-control">
                 <span class="sp-thongbao" id="typePeopleAlert"></span>
-              </div>
-              <div class="form-group">
-                <label for="">Loại Ngôn Ngữ: </label>
-                <select class="form-control" id="languageType">
-                  <option>Chọn ngôn ngữ</option>
-                  <option value="ITALIAN">ITALIAN</option>
-                  <option value="FRENCH">FRENCH</option>
-                  <option value="JAPANESE">JAPANESE</option>
-                  <option value="CHINESE">CHINESE</option>
-                  <option value="RUSSIAN">RUSSIAN</option>
-                  <option value="SWEDEN">SWEDEN</option>
-                  <option value="SPANISH">SPANISH</option>
-                </select>
-                <span class="sp-thongbao" id="alertLanguageType"></span>
               </div>
               <div class="form-group">
                 <label>Mô tả</label>
@@ -246,6 +227,8 @@
                 ></textarea>
                 <span class="sp-thongbao" id="describeAlert"></span>
               </div>
+              <button class="btn btn-success text-danger font-weight-bold float-right" id="logOutInfo"
+              onclick="themTT()">Thêm Sản phẩm</button>
             </div>
             <!-- Modal footer -->
             <div class="modal-footer"></div>

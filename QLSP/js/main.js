@@ -151,7 +151,7 @@ fetchData();
   })
 }
 function themTT(){
-  var productName = getEle("tenSP").value;
+  var productName = getEle("accounT").value;
   var price = getEle("price").value;
   var screenType = getEle("screenType").value;
   var backCamera = getEle("backCamera").value;
@@ -174,7 +174,7 @@ function capnhatTT(id){
   service
   .getProductById(id)
   .then(function(result){
-   getEle("tenSP").value = result.data.name;
+   getEle("accounT").value = result.data.name;
    getEle("price").value=result.data.price;
   getEle("screenType").value=result.data.screen;
   getEle("backCamera").value = result.data.backCamera;
@@ -189,7 +189,7 @@ function capnhatTT(id){
 }
 
 function updateProduct(id){
-  var productName = getEle("tenSP").value;
+  var productName = getEle("accounT").value;
   var price = getEle("price").value;
   var screenType = getEle("screenType").value;
   var backCamera = getEle("backCamera").value;
@@ -222,6 +222,32 @@ function setLocalStorage() {
       dssv.arr = dataJson;
       //hiển thị dssv ra ngoài table
       renderTable(dataJson);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      
     }
   }
 
