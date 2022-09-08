@@ -34,7 +34,7 @@ function updatecart() {
         var quantity = quantity_item.value // lấy giá trị trong thẻ input
         total = total + (price * quantity)
     }
-    document.getElementsByClassName("cart-total-price")[0].innerText = total + 'VNĐ'
+    document.getElementsByClassName("cart-total-price")[0].innerText = total + '$'
 }
 setInterval(function () {
     var quantity_input = document.getElementsByClassName("cart-quantity-input");
@@ -135,5 +135,4 @@ let showData = () => {
 let saveData = (data) => {
     localStorage.setItem("listCart", JSON.stringify(data))
 }
-
 window.onload = showData();
