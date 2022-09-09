@@ -83,28 +83,29 @@ function delete_cart(id) {
     const productsJSON = localStorage.getItem('products')
     const products = JSON.parse(productsJSON)
     const index = products.findIndex((item) => item.id == id);
-    listCart.splice(index, 1)
-    console.log(products);
-    saveData(listCart);
-    showData(index);
-    updatecart();
+    if (index != -1) {
+        listCart.splice(products[index], 1);
+        console.log(listCart);
+        saveData(listCart);
+        showData(listCart);
+        updatecart();
+    }
+
     modal.style.display = "block";
 }
 function delete_allCart() {
     const productsJSON = localStorage.getItem('products')
     const products = JSON.parse(productsJSON)
-    console.log(products);
     listCart.splice(products)
     saveData(listCart);
     showData();
     updatecart()
     modal.style.display = "block";
 }
-document.getElementById("thanhToan").onclick = function () {
+document.getElementById("thanhToan").onclick = () => {
     const productsJSON = localStorage.getItem('products');
     const products = JSON.parse(productsJSON);
     var total = document.getElementsByClassName("cart-total-price")[0].innerHTML;
-    console.log(total);
     for (let i = 0; i < products.length; i++) {
         alert(` Tổng đơn của bạn là : ${total}`)
         break;
