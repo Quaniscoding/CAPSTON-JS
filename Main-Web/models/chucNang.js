@@ -88,7 +88,6 @@ function delete_cart(id) {
         currentProduct = products[index]
     }
     const deleteProduct = { name: currentProduct.name, price: currentProduct.price, img: currentProduct.img, id: currentProduct.id }
-    console.log(deleteProduct);
     listCart.splice(deleteProduct, 1)
     console.log(products);
     saveData(listCart);
@@ -96,20 +95,27 @@ function delete_cart(id) {
     updatecart();
     modal.style.display = "block";
 }
-function delete_allCart(id) {
+function delete_allCart() {
     const productsJSON = localStorage.getItem('products')
     const products = JSON.parse(productsJSON)
-    const index = products.findIndex((item) => item.id == id);
-    let currentProduct = null;
-    if (index !== -1) {
-        currentProduct = products[index]
-    }
-    const deleteProduct = { name: currentProduct.name, price: currentProduct.price, img: currentProduct.img, id: currentProduct.id }
-    listCart.splice(deleteProduct)
+    console.log(products);
+    listCart.splice(products)
     saveData(listCart);
-    showData(index);
+    showData();
     updatecart()
     modal.style.display = "block";
+}
+document.getElementById("thanhToan").onclick = function () {
+    const productsJSON = localStorage.getItem('products');
+    const products = JSON.parse(productsJSON);
+    var total = document.getElementsByClassName("cart-total-price")[0].innerHTML;
+    console.log(total);
+    for (let i = 0; i < products.length; i++) {
+        alert(` tong don cua ban la : ${total}`)
+        break;
+
+    }
+    delete_allCart();
 }
 let showData = () => {
     let getListCart = JSON.parse(localStorage.getItem("listCart"));
@@ -125,7 +131,6 @@ let showData = () => {
             <div class="cart-quantity cart-column">
                 <input class="cart-quantity-input" type="number" value="1">
                 <button class="btn btn-danger" type="button" onclick="delete_cart(${item.id})">Xóa</button>
-                <button class="btn btn-danger" type="button" onclick="delete_allCart(${item.id})">Xóa toàn bộ</button>
             </div>
         </div>
             `
