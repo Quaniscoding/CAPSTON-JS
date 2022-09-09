@@ -83,12 +83,7 @@ function delete_cart(id) {
     const productsJSON = localStorage.getItem('products')
     const products = JSON.parse(productsJSON)
     const index = products.findIndex((item) => item.id == id);
-    let currentProduct = null;
-    if (index !== -1) {
-        currentProduct = products[index]
-    }
-    const deleteProduct = { name: currentProduct.name, price: currentProduct.price, img: currentProduct.img, id: currentProduct.id }
-    listCart.splice(deleteProduct, 1)
+    listCart.splice(index, 1)
     console.log(products);
     saveData(listCart);
     showData(index);
@@ -111,7 +106,7 @@ document.getElementById("thanhToan").onclick = function () {
     var total = document.getElementsByClassName("cart-total-price")[0].innerHTML;
     console.log(total);
     for (let i = 0; i < products.length; i++) {
-        alert(` tong don cua ban la : ${total}`)
+        alert(` Tổng đơn của bạn là : ${total}`)
         break;
 
     }
