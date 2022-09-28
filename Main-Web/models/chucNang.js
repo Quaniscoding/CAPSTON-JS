@@ -83,13 +83,10 @@ function delete_cart(id) {
     const productsJSON = localStorage.getItem('products')
     const products = JSON.parse(productsJSON)
     const index = products.findIndex((item) => item.id == id);
-    if (index != -1) {
-        listCart.splice(products[index], 1);
-        console.log(listCart);
-        saveData(listCart);
-        showData(listCart);
-        updatecart();
-    }
+    listCart.splice(index, 1);
+    saveData(listCart);
+    showData(listCart);
+    updatecart();
 
     modal.style.display = "block";
 }
